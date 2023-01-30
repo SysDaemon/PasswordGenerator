@@ -2,6 +2,7 @@
 # -*- coding: latin-1 -*-
 
 import random
+import requests
 
 while True:
     lower_character = "abcdefghijklmnopqrstuvwxyz"
@@ -9,7 +10,10 @@ while True:
     symbols = "!@#$%&*()_+=´^~{[}]:;.>,<"
     
     string = lower_character + upper_character + symbols
-    
+
+    # Get the random seed for choices in string
+    response = requests.get('https://www.random.org/integers/?num=1&min=1&max=1000&col=1&base=10&format=plain&rnd=new') 
+    random.seed(a =response.text, version=2)
     try:
         # comment: Trying to get inputted values
             password_length = int(input("What length would you like your password to be: "))
@@ -17,7 +21,7 @@ while True:
     except EOFError as e:
         raise e
     # end try
-
+    
     for x in range(0,password_count):
         password = ""
         for x in range(0,password_length):
